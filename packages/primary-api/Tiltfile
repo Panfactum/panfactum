@@ -1,5 +1,5 @@
 load('../tilt/common.tiltfile', 'REGISTRY', 'NAMESPACE', 'TF_ROOT_DIR')
-load('../tilt/podman.tiltfile', 'podman_build')
+load('../tilt/local_build.tiltfile', 'local_build')
 
 LABELS = ['api']
 TF_DIR = "{}/panfactum_primary_api_deployment".format(TF_ROOT_DIR)
@@ -9,13 +9,12 @@ IMAGE = "{}/primary-api".format(REGISTRY)
 # Cluster resources
 ################################################
 
-podman_build(
+local_build(
   IMAGE,
   "../..",
   extra_flags=[
-    "-f", "./Containerfile",
-     "--target", "development"
-   ],
+     "--opt", "target=development"
+  ],
   deps=  [
      "src",
      "scripts",

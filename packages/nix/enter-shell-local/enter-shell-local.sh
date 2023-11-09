@@ -58,13 +58,7 @@ export TERRAGRUNT_DOWNLOAD="$DEVENV_ROOT/.terragrunt-cache"
 ## Podman / Docker
 #############################################
 
-# Needed in order to use non-root podman with docker emulation
-export XDG_RUNTIME_DIR=''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}
-export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/podman/podman.sock
-export DOCKER_SOCK=$XDG_RUNTIME_DIR/podman/podman.sock
-
 # We provide a custom credential helper so we can avoid
 # the nuisance of the ECR login flow
 export REGISTRY_AUTH_FILE="$DEVENV_ROOT/.podman/config.json"
 export DOCKER_CONFIG="$DEVENV_ROOT/.podman" # Needed for buildkit to work
-

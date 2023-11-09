@@ -2,7 +2,6 @@
 # Imports
 ################################################
 load('ext://uibutton', 'cmd_button')
-load('packages/tilt/podman.tiltfile', 'podman_build')
 load('packages/tilt/common.tiltfile', 'REGISTRY', 'NAMESPACE', 'TF_ROOT_DIR')
 
 ################################################

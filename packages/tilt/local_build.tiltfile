@@ -1,10 +1,10 @@
 # -*- mode: Python -*-
 
 
-def podman_build(
-  ref, context, ignore=None, extra_flags=None, deps=None, live_update=[]
+def local_build(
+  ref, context, ignore=None, extra_flags=[], deps=None, live_update=[],
 ):
-  """Use Podman (https://podman.io/) to build images for Tilt.
+  """Panfactum remote build for local development images for Tilt.
   Args:
     ref: The name of the image to build. Must match the image
       name in the Kubernetes resources you're deploying.
@@ -13,26 +13,15 @@ def podman_build(
       Defaults to the build context.
     ignore: Changes to the given files or directories do not trigger rebuilds.
       Does not affect the build context.
-    extra_flags: Extra flags to pass to podman build. Expressed as an argv-style array.
+    extra_flags: Extra flags to pass to buildctl build. Expressed as an argv-style array.
     live_update: Set of steps for updating a running container
       (see https://docs.tilt.dev/live_update_reference.html)
   """
-  deps = deps or [context]
-  extra_flags = extra_flags or []
   extra_flags_str = ' '.join([shlex.quote(f) for f in extra_flags])
-
-  # We use --format=docker due to
-  # https://github.com/containers/buildah/issues/1589
-  # which lots of people are still reporting, even though it's closed :shrug:
-  push_cmd = "podman push --tls-verify=false --format=docker $EXPECTED_REF\n"
 
   custom_build(
     ref=ref,
-    command=(
-      "set -ex\n" +
-      "podman build -t $EXPECTED_REF %s %s\n" +
-      push_cmd
-    ) % (extra_flags_str, shlex.quote(context)),
+    command=("cd %s && local-build $EXPECTED_REF '%s'") % (shlex.quote(context), extra_flags_str),
     ignore=ignore,
     deps=deps,
     live_update=live_update,

@@ -1,17 +1,16 @@
 load('../tilt/common.tiltfile', 'REGISTRY', 'NAMESPACE', 'TF_ROOT_DIR')
-load('../tilt/podman.tiltfile', 'podman_build')
+load('../tilt/local_build.tiltfile', 'local_build')
 
 LABELS = ['app']
 TF_DIR = "{}/panfactum_public_app_deployment".format(TF_ROOT_DIR)
 IMAGE = "{}/public-app".format(REGISTRY)
 
-podman_build(
+local_build(
   IMAGE,
   "../..",
   extra_flags=[
-    "-f", "./Containerfile",
-     "--target", "development"
-   ],
+     "--opt", "target=development"
+  ],
   deps=[
      "src",
      "scripts",

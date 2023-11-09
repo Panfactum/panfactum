@@ -157,10 +157,10 @@ let
     ####################################
     # Container Management
     ####################################
-    podman # container management CLI
     docker-compose # compose files
     lazydocker # tui for managing local containers
     tilt # local CI tool for building and deploying containers
+    (customModule "local-build")
 
     ####################################
     # Kubernetes
