@@ -1,4 +1,4 @@
-source: /live/kube_cilium
+source: //live/kube_cilium
 providers:
   kubernetes: true
   helm: true

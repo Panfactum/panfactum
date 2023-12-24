@@ -1,4 +1,4 @@
-source: /live/aws_kms_encrypt_key
+source: //live/aws_kms_encrypt_key
 providers:
   aws: true
   aws_secondary: true

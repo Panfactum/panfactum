@@ -47,7 +47,7 @@ locals {
 }
 
 module "constants" {
-  source = "../../modules/constants"
+  source = "github.com/Panfactum/infrastructure.git//modules/constants"
 }
 
 /***************************************
@@ -55,7 +55,7 @@ module "constants" {
 ***************************************/
 
 module "namespace" {
-  source            = "../../modules/kube_namespace"
+  source            = "github.com/Panfactum/infrastructure.git//modules/kube_namespace"
   namespace         = var.namespace
   admin_groups      = ["system:admins"]
   reader_groups     = ["system:readers"]
@@ -76,7 +76,7 @@ resource "kubernetes_service_account" "service" {
 }
 
 module "deployment" {
-  source   = "../../modules/kube_deployment"
+  source   = "github.com/Panfactum/infrastructure.git//modules/kube_deployment"
   is_local = local.is_local
 
   kube_labels     = local.labels
@@ -137,7 +137,7 @@ module "deployment" {
 }
 
 module "ingress" {
-  source = "../../modules/kube_ingress"
+  source = "github.com/Panfactum/infrastructure.git//modules/kube_ingress"
 
   namespace    = local.namespace
   kube_labels  = local.labels

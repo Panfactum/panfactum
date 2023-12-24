@@ -1,7 +1,9 @@
-source: live/panfactum_primary_api_deployment
+source: //packages/infrastructure/live/panfactum_primary_api_deployment
 providers:
   kubernetes: true
   aws: true
   random: true
   time: true
   vault: true
+overrides:
+  infra_repo: "github.com/Panfactum/panfactum.git"

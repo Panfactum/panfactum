@@ -1,3 +1,3 @@
-source: live/kube_reloader
+source: //live/kube_reloader
 providers:
   kubernetes: true

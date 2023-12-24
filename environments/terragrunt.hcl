@@ -35,12 +35,12 @@ locals {
   version_hash = run_cmd("--terragrunt-quiet", "get-version-hash", local.version)
 
   # Defining the module source
-  # NOTE: You can only use modules defined inside this repo (to use other repo's modules), define a
-  # `module` block in your terraform code
+  # NOTE: The default behavior is to consume packages from a globally defined central infrastructure repository which is versioned out of band of this repo
+  # To pull from a different repository set the 'infra_repo' to that repo in the 'module.yaml' or any file deeper than 'global.yaml'
+  # To use a local package with local versioning set the 'version' to 'local' in the 'module.yaml' 
   # Always use the local copy if trying to deploy to mainline branches to resolve performance and caching issues
-  use_local_terraform  = contains(["latest", "local", local.primary_branch], local.version)
-  terraform_path       = "/packages/infrastructure//${local.module_source}"
-  module_source_string = local.use_local_terraform ? "${get_repo_root()}${local.terraform_path}" : "${local.global_vars.repo_url}${local.terraform_path}?ref=${local.version}"
+  use_local_terraform  = "local" == local.version
+  module_source_string = local.use_local_terraform ? "${get_repo_root()}${local.module_source}" : "${local.global_vars.infra_repo}${local.module_source}?ref=${local.version}"
 
   # Folder of shared snippets to generate
   shared_folder = "${get_repo_root()}/environments/shared"
@@ -50,6 +50,7 @@ locals {
   enable_aws           = lookup(local.providers, "aws", false)
   enable_aws_secondary = lookup(local.providers, "aws_secondary", false)
   enable_kubernetes    = lookup(local.providers, "kubernetes", false)
+  enable_helm          = lookup(local.providers, "helm", false)
   enable_github        = lookup(local.providers, "github", false)
   enable_time          = lookup(local.providers, "time", false)
   enable_random        = lookup(local.providers, "random", false)
@@ -126,7 +127,13 @@ generate "aws_secondary_provider" {
 generate "kubernetes_provider" {
   path      = "kubernetes.tf"
   if_exists = "overwrite_terragrunt"
-  contents  = local.enable_kubernetes ? file("${local.shared_folder}/kubernetes.tf") : ""
+  contents  = local.enable_kubernetes || local.enable_helm ? file("${local.shared_folder}/kubernetes.tf") : ""
+}
+
+generate "helm_provider" {
+  path      = "helm.tf"
+  if_exists = "overwrite_terragrunt"
+  contents  = local.enable_helm ? file("${local.shared_folder}/helm.tf") : ""
 }
 
 generate "github_provider" {

@@ -1,4 +1,4 @@
-source: /live/kube_aws_ebs_csi
+source: //live/kube_aws_ebs_csi
 providers:
   kubernetes: true
   helm: true

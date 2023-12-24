@@ -1,4 +1,4 @@
-source: /live/aws_sso
+source: //live/aws_sso
 providers:
   aws: true
   time: true

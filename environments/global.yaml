@@ -3,6 +3,8 @@ repo_name: "panfactum" # The name of the Github repository
 repo_url: "github.com/panfactum/panfactum.git" # The HTTP URI for the Github repository
 repo_primary_branch: "main" # The main integration branch for the repository
 
+infra_repo: "github.com/Panfactum/infrastructure.git" # The HTTP URI for the Github repository containing infrastructure modules this repo consumes
+
 # ECR repos that should exist everytime we spin up ECR in an account
 ecr_repository_names:
   - public-site

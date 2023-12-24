@@ -1,4 +1,4 @@
-source: /live/kube_ingress_controllers
+source: //live/kube_ingress_controllers
 providers:
   kubernetes: true
   helm: true

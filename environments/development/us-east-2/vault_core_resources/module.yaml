@@ -1,4 +1,4 @@
-source: live/vault_core_resources
+source: //live/vault_core_resources
 providers:
   kubernetes: true
   vault: true

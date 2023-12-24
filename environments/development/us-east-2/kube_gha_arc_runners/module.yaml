@@ -1,4 +1,4 @@
-source: /live/kube_gha_arc_runners
+source: //live/kube_gha_arc_runners
 providers:
   kubernetes: true
   helm: true

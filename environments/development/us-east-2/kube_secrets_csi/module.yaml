@@ -1,4 +1,4 @@
-source: /live/kube_secrets_csi
+source: //live/kube_secrets_csi
 providers:
   kubernetes: true
   helm: true

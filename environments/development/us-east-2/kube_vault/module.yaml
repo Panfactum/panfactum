@@ -1,4 +1,4 @@
-source: live/kube_vault
+source: //live/kube_vault
 providers:
   kubernetes: true
   helm: true

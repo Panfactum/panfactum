@@ -1,4 +1,4 @@
-source: /live/init
+source: //live/init
 providers:
   aws: true
   azuread: true

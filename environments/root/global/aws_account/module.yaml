@@ -1,3 +1,3 @@
-source: /live/aws_account
+source: //live/aws_account
 providers:
   aws: true

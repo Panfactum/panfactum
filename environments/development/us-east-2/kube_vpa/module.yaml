@@ -1,4 +1,4 @@
-source: live/kube_vpa
+source: //live/kube_vpa
 providers:
   kubernetes: true
   helm: true

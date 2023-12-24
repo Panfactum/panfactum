@@ -1,4 +1,4 @@
-source: /live/kube_cert_manager
+source: //live/kube_cert_manager
 providers:
   kubernetes: true
   helm: true

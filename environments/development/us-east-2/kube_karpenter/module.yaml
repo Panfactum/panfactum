@@ -1,4 +1,4 @@
-source: /live/kube_karpenter
+source: //live/kube_karpenter
 providers:
   kubernetes: true
   helm: true

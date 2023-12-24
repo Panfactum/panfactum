@@ -1,4 +1,4 @@
-source: /live/kube_cloudnative_pg
+source: //live/kube_cloudnative_pg
 providers:
   kubernetes: true
   helm: true
