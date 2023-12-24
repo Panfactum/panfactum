@@ -1,4 +1,4 @@
-source: //packages/infrastructure//live/panfactum_public_app_deployment
+source: //packages/infrastructure/live/panfactum_public_app_deployment
 providers:
   kubernetes: true
 overrides:
