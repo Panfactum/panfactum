@@ -1,4 +1,4 @@
-source: /live/kube_linkerd
+source: //live/kube_linkerd
 providers:
   kubernetes: true
   vault: true

@@ -47,7 +47,7 @@ locals {
 }
 
 module "constants" {
-  source = "../../modules/constants"
+  source = "github.com/Panfactum/infrastructure.git//modules/constants"
 }
 
 /***************************************
@@ -55,7 +55,7 @@ module "constants" {
 ***************************************/
 
 module "namespace" {
-  source            = "../../modules/kube_namespace"
+  source            = "github.com/Panfactum/infrastructure.git//modules/kube_namespace"
   namespace         = var.namespace
   admin_groups      = ["system:admins"]
   reader_groups     = ["system:readers"]
@@ -68,7 +68,7 @@ module "namespace" {
 ***************************************/
 
 module "postgres" {
-  source               = "../../modules/kube_pg_cluster"
+  source               = "github.com/Panfactum/infrastructure.git//modules/kube_pg_cluster"
   eks_cluster_name     = var.eks_cluster_name
   public_outbound_ips  = var.public_outbound_ips
   kube_labels          = local.labels
@@ -81,7 +81,7 @@ module "postgres" {
 }
 
 module "db_access" {
-  source          = "../../modules/kube_sa_auth_pg"
+  source          = "github.com/Panfactum/infrastructure.git//modules/kube_sa_auth_pg"
   namespace       = local.namespace
   service_account = kubernetes_service_account.service.metadata[0].name
   database_role   = module.postgres.db_writer_role
@@ -89,7 +89,7 @@ module "db_access" {
 }
 
 module "db_access_admin" {
-  source          = "../../modules/kube_sa_auth_pg"
+  source          = "github.com/Panfactum/infrastructure.git//modules/kube_sa_auth_pg"
   namespace       = local.namespace
   service_account = kubernetes_service_account.service.metadata[0].name
   database_role   = module.postgres.db_admin_role
@@ -113,7 +113,7 @@ resource "kubernetes_service_account" "service" {
 }
 
 module "deployment" {
-  source   = "../../modules/kube_deployment"
+  source   = "github.com/Panfactum/infrastructure.git//modules/kube_deployment"
   is_local = local.is_local
 
   kube_labels     = local.labels
@@ -214,7 +214,7 @@ module "deployment" {
 }
 
 module "ingress" {
-  source = "../../modules/kube_ingress"
+  source = "github.com/Panfactum/infrastructure.git//modules/kube_ingress"
 
   namespace    = local.namespace
   kube_labels  = local.labels

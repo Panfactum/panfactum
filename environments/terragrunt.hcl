@@ -50,6 +50,7 @@ locals {
   enable_aws           = lookup(local.providers, "aws", false)
   enable_aws_secondary = lookup(local.providers, "aws_secondary", false)
   enable_kubernetes    = lookup(local.providers, "kubernetes", false)
+  enable_helm          = lookup(local.providers, "helm", false)
   enable_github        = lookup(local.providers, "github", false)
   enable_time          = lookup(local.providers, "time", false)
   enable_random        = lookup(local.providers, "random", false)
@@ -126,7 +127,13 @@ generate "aws_secondary_provider" {
 generate "kubernetes_provider" {
   path      = "kubernetes.tf"
   if_exists = "overwrite_terragrunt"
-  contents  = local.enable_kubernetes ? file("${local.shared_folder}/kubernetes.tf") : ""
+  contents  = local.enable_kubernetes || local.enable_helm ? file("${local.shared_folder}/kubernetes.tf") : ""
+}
+
+generate "helm_provider" {
+  path      = "helm.tf"
+  if_exists = "overwrite_terragrunt"
+  contents  = local.enable_helm ? file("${local.shared_folder}/helm.tf") : ""
 }
 
 generate "github_provider" {

@@ -1,3 +1,3 @@
-source: /live/aws_hosted_zone_record_manager
+source: //live/aws_hosted_zone_record_manager
 providers:
   aws: true

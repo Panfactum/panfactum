@@ -1,4 +1,4 @@
-source: /live/kube_cert_issuers
+source: //live/kube_cert_issuers
 providers:
   kubernetes: true
   aws: true

@@ -1,4 +1,4 @@
-source: /live/kube_prometheus_stack
+source: //live/kube_prometheus_stack
 providers:
   kubernetes: true
   helm: true

@@ -1,4 +1,4 @@
-source: /live/kube_gha_arc_systems
+source: //live/kube_gha_arc_systems
 providers:
   kubernetes: true
   helm: true

@@ -1,3 +1,3 @@
-source: /live/aws_hosted_zones
+source: //live/aws_hosted_zones
 providers:
   aws: true

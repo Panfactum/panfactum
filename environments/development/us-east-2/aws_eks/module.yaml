@@ -1,4 +1,4 @@
-source: /live/aws_eks
+source: //live/aws_eks
 providers:
   aws: true
   tls: true

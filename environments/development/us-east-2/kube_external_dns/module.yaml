@@ -1,4 +1,4 @@
-source: /live/kube_external_dns
+source: //live/kube_external_dns
 providers:
   kubernetes: true
   helm: true
