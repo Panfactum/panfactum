@@ -35,12 +35,12 @@ locals {
   version_hash = run_cmd("--terragrunt-quiet", "get-version-hash", local.version)
 
   # Defining the module source
-  # NOTE: The default behavior is to consume packages from a globally defined central infrastructure repository which is versioned out of band of this repo
-  # To pull from a different repository set the 'infra_repo' to that repo in the 'module.yaml' or any file deeper than 'global.yaml'
-  # To use a local package with local versioning set the 'version' to 'local' in the 'module.yaml' 
+  # NOTE: You can only use modules defined inside this repo (to use other repo's modules), define a
+  # `module` block in your terraform code
   # Always use the local copy if trying to deploy to mainline branches to resolve performance and caching issues
-  use_local_terraform  = "local" == local.version
-  module_source_string = local.use_local_terraform ? "${get_repo_root()}${local.module_source}" : "${local.global_vars.infra_repo}${local.module_source}?ref=${local.version}"
+  use_local_terraform  = contains(["latest", "local", local.primary_branch], local.version)
+  terraform_path       = "/packages/infrastructure//${local.module_source}"
+  module_source_string = local.use_local_terraform ? "${get_repo_root()}${local.terraform_path}" : "${local.global_vars.repo_url}${local.terraform_path}?ref=${local.version}"
 
   # Folder of shared snippets to generate
   shared_folder = "${get_repo_root()}/environments/shared"
